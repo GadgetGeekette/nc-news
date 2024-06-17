@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { fetchArticles } from "./api";
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 // import { UserContext } from '../contexts/UserContext'
 // import { useContext } from 'react'
 
-
 const ArticleList = () => {
+
+    console.log('--sanity check')
 
     // const {user} = useContext(UserContext);
     const {sorting} = useParams();
@@ -14,10 +15,8 @@ const ArticleList = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        console.log(sorting, '---sorting params from article list')
         fetchArticles(sorting)
         .then((articleData) => {
-            console.log(articleData, '--article data')
             setArticles(articleData);
             setIsLoading(false);
         });
@@ -39,19 +38,22 @@ const ArticleList = () => {
     }
     
     function getArticle(article) {
+        const link = `/articles/${article.article_id}`;
         return (
             <li key={article.article_id} className="card">
                 <fieldset>
-                    <p className='bold'>{article.title}</p>
-                    <p>Topic: {article.topic}</p>
-                    <p>Author: {article.author} </p>
-                    <p>Created On: {article.created_at} </p>
-                    <p>Votes: {article.votes} </p>
-                    <p>Comments: {article.comment_count} </p>
-                    <img src={article.article_img_url} className="image" alt={`Image of ${article.title}`} />
+                    <Link to={link} key={article.article_id}>
+                        <p className='bold'>{article.title}</p>
+                        <p>Topic: {article.topic}</p>
+                        <p>Author: {article.author} </p>
+                        <p>Created On: {article.created_at} </p>
+                        <p>Votes: {article.votes} </p>
+                        <p>Comments: {article.comment_count} </p>
+                        <img src={article.article_img_url} className="image" alt={`Image of ${article.title}`} />
+                    </Link>
                 </fieldset>
             </li>
-        )
+        );
     }
 
     return isLoading
