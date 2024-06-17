@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Nav from './components/Nav';
 import Home from './components/Home';
 import ArticleList from './components/ArticleList';
+import Article from './components/Article';
 import { UserProvider } from './contexts/UserContext';
 
 function App() {
@@ -15,8 +16,9 @@ function App() {
       <Nav />
       <Routes>
         <Route path='/' element={<Home />}></Route>
+        <Route path='/articles/:id' element={<Article />}></Route>
         <Route path='/articles/:sort_by?/:order?' element={<ArticleList />}></Route>
-        {/* <Route path='/articles/:filterByUser' element={<ArticleList />}></Route> */}
+        {/* <Route path='/articles/:filterByUser?' element={<ArticleList />}></Route> */}
       </Routes>
     </UserProvider>
   )
