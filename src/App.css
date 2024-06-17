@@ -37,6 +37,25 @@
   padding: 2em;
 }
 
-.read-the-docs {
-  color: #888;
+.header {
+  font-size: small;
+  text-align: right;
 }
+
+.menu {
+  text-align: left;
+}
+
+.menu-item {
+  padding-right: 1em;
+}
+
+.image {
+  width: 30%;
+  height: 30%;
+}
+
+.bold {
+  font-weight: bold;
+}
+
