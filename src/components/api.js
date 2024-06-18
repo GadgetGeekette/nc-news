@@ -25,13 +25,21 @@ export const fetchArticleById = (id) => {
 }
 
 export const fetchComments = (articleId) => {
-    console.log(articleId, '-- api article id')
     return ncNewsApi.get(`/articles/${articleId}/comments`)
         .then(({data}) => {
-            console.log(data, '--api data')
             return data.comments;
         })
         .catch((err) => {
             console.log(err, `-- Error whilst fetching comments for article with ID: ${articleId} --`)
+        });
+}
+
+export const updateCommentVote = (id, incVotes) => {
+    return ncNewsApi.patch(`/comments/${id}`, {inc_votes: incVotes})
+        .then(({data}) => {
+            return data.comment;
+        })
+        .catch((err) => {
+            console.log(err, `-- Error whilst updating comment vote with ID: ${id} --`)
         });
 }
