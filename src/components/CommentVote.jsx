@@ -4,7 +4,10 @@ import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import { useState, useEffect } from 'react';
 import {updateCommentVote} from './api'
 
-function Vote({comment}) {
+// TODO: after user login implemented, prevent user voting multiple times across different sessions
+
+function CommentVote({comment}) {
+
     const [votes, setVotes] = useState(comment.voteCount);
     const [incrVote, setIncrVote] = useState(0);
     const [errMessage, setErrMessage] = useState('');
@@ -21,7 +24,7 @@ function Vote({comment}) {
                         : 'An unknown error occurred';
                     setErrMessage(errMsg);
                 });
-        };
+        }
     }, [comment, incrVote]);
 
     function handleClick() {
@@ -48,4 +51,4 @@ function Vote({comment}) {
         </div>)
 }
 
-export default Vote;
+export default CommentVote;

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 // import { useParams, Link } from 'react-router-dom';
 import CommentList from './CommentList';
+import ArticleVote from './ArticleVote';
 
 const Article = () => {
 
@@ -22,7 +23,7 @@ const Article = () => {
         <p>Topic: {article.topic}</p>
         <p>Author: {article.author} </p>
         <p>Created On: {article.created_at} </p>
-        <p>Votes: {article.votes} </p>
+        <ArticleVote article={{id:article.article_id,voteCount:article.votes}} />
         <p>Comments: {article.comment_count} </p>
         <p>{article.body}</p>
         <br />
