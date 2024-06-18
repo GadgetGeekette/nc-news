@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { fetchComments } from './api';
 import { useParams } from 'react-router-dom';
-import Vote from './Vote';
+import CommentVote from './CommentVote';
 
 function CommentList(id) {
     // const {user} = useContext(UserContext);
@@ -28,8 +28,8 @@ function CommentList(id) {
                 <div className='comments border'>
                     <p className='bold'>{comment.author} - {comment.created_at}</p>
                     <p className='border'>{comment.body}</p>
-                    <Vote comment={{id:comment.comment_id,voteCount:comment.votes}} />
-                    {/* TODO add button component to delete comment if author is current user */}
+                    <CommentVote comment={{id:comment.comment_id,voteCount:comment.votes}} />
+                    {/* TODO: add button component to delete comment if author is current user */}
                 </div>
                 <br />
             </li>
