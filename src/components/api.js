@@ -23,3 +23,15 @@ export const fetchArticleById = (id) => {
             console.log(err, `-- Error whilst fetching article with ID: ${id} --`)
         });
 }
+
+export const fetchComments = (articleId) => {
+    console.log(articleId, '-- api article id')
+    return ncNewsApi.get(`/articles/${articleId}/comments`)
+        .then(({data}) => {
+            console.log(data, '--api data')
+            return data.comments;
+        })
+        .catch((err) => {
+            console.log(err, `-- Error whilst fetching comments for article with ID: ${articleId} --`)
+        });
+}
