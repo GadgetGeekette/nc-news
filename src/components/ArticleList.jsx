@@ -6,8 +6,6 @@ import { useParams, Link } from 'react-router-dom';
 
 const ArticleList = () => {
 
-    console.log('--sanity check')
-
     // const {user} = useContext(UserContext);
     const {sorting} = useParams();
     const [isLoading, setIsLoading] = useState(true);

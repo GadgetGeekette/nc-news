@@ -1,10 +1,12 @@
-import { useParams } from 'react-router-dom'
 import {fetchArticleById} from './api'
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+// import { useParams, Link } from 'react-router-dom';
+import CommentList from './CommentList';
 
 const Article = () => {
 
-    const { id } = useParams();
+    const {id} = useParams();
     const [article, setArticle] = useState({});
 
     useEffect(() => {
@@ -23,6 +25,9 @@ const Article = () => {
         <p>Votes: {article.votes} </p>
         <p>Comments: {article.comment_count} </p>
         <p>{article.body}</p>
+        <br />
+        {CommentList(article.article_id)}
+        {/* <Link to={`/articles/${article.article_id}/comments`} key={article.article_id}>View Comments</Link> */}
     </section>);
 };
 
