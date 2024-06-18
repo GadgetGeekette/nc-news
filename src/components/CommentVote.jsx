@@ -41,7 +41,11 @@ function CommentVote({comment}) {
     }
 
     return errMessage
-        ? (<h4>Sorry: an unknown error occurred whilst updating your vote, please try again later...</h4>)
+        ? (<div className="border">
+            <h4>Sorry: an error occurred whilst updating your vote, please try again...</h4>
+            <p>Error Details:</p>
+            <p>{errMessage}</p>
+        </div>)
 
         : (<div>
             <div>Votes: {votes}</div>
