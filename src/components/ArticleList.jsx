@@ -1,12 +1,9 @@
 import { useState, useEffect } from 'react';
 import { fetchArticles } from "./api";
 import { useParams, Link } from 'react-router-dom';
-// import { UserContext } from '../contexts/UserContext'
-// import { useContext } from 'react'
 
 const ArticleList = () => {
 
-    // const {user} = useContext(UserContext);
     const {sorting} = useParams();
     const [isLoading, setIsLoading] = useState(true);
     const [articles, setArticles] = useState([]);
@@ -47,7 +44,7 @@ const ArticleList = () => {
                         <p>Created On: {article.created_at} </p>
                         <p>Votes: {article.votes} </p>
                         <p>Comments: {article.comment_count} </p>
-                        <img src={article.article_img_url} className="image" alt={`Image of ${article.title}`} />
+                        <img src={article.article_img_url} className="image-small" alt={`Image of ${article.title}`} />
                     </Link>
                 </fieldset>
             </li>

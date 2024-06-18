@@ -53,3 +53,14 @@ export const updateArticleVote = (id, incVotes) => {
             console.log(err, `-- Error whilst updating article vote with ID: ${id} --`)
         });
 }
+
+export const postComment = (id, comment) => {
+    return ncNewsApi.post(`/articles/${id}/comments`, comment)
+        .then(({data}) => {
+            return data.comment;
+        })
+        .catch((err) => {
+            console.log(err, `-- Error whilst adding comment with article ID: ${id} --`)
+        });
+}
+

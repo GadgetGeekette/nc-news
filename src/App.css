@@ -42,16 +42,17 @@
   text-align: right;
 }
 
-.menu {
-  text-align: left;
-}
-
-.menu-item {
+.pad-right {
   padding-right: 1em;
 }
 
-.image {
+.image-small {
   width: 30%;
+  height: 20%;
+}
+
+.image-medium {
+  width: 40%;
   height: 30%;
 }
 
@@ -76,4 +77,23 @@
   padding: 0em 1em 1em 1em;
 }
 
+.add-comment {
+  width: 98%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.align-left {
+  text-align: left;
+  float: left;
+}
+
+.align-right {
+  text-align: right;
+  float: right;
+}
+
+.btn {
+  background-color: rgb(96, 167, 217);
+}
 

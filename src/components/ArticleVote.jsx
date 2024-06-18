@@ -8,11 +8,9 @@ import {updateArticleVote} from './api'
 
 function ArticleVote({article}) {
     
-    console.log(article.voteCount,'--article.voteCount')
     const [votes, setVotes] = useState(article.voteCount);
     const [incrVote, setIncrVote] = useState(0);
     const [errMessage, setErrMessage] = useState('');
-    console.log(votes,'--votes')
 
     useEffect(() => {
         if (incrVote !== 0) {
@@ -50,7 +48,11 @@ function ArticleVote({article}) {
     }
 
     return errMessage
-        ? (<h4>Sorry: an unknown error occurred whilst updating your vote, please try again later...</h4>)
+        ? (<div className="border">
+            <h4>Sorry: an error occurred whilst updating your vote, please try again...</h4>
+            <p>Error Details:</p>
+            <p>{errMessage}</p>
+        </div>)
 
         : (<div>
             <div>Votes: {getVotes()}</div>
