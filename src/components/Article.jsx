@@ -15,6 +15,9 @@ const Article = () => {
         fetchArticleById(id)
             .then((articleData) => {
                 setArticle(articleData)
+            })
+            .catch((err) => {
+                console.log(err, '<--Fetch article error')
             });
     }, [id]);
 
