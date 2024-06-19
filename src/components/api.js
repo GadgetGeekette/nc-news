@@ -64,3 +64,13 @@ export const postComment = (id, comment) => {
         });
 }
 
+export const deleteComment = (id) => {
+    return ncNewsApi.delete(`/comments/${id}`)
+        .then(({status}) => {
+            return status;
+        })
+        .catch((err) => {
+            console.log(err, `-- Error whilst adding comment with article ID: ${id} --`)
+        });
+}
+
