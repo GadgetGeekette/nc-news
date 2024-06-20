@@ -6,7 +6,8 @@ import { UserContext } from '../contexts/UserContext';
 import { useContext } from 'react';
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete';
-import { deleteComment } from './api'
+import { deleteComment } from './api';
+import '../styling/comment.css';
 
 function CommentList(id) {
     

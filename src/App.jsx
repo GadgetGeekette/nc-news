@@ -8,21 +8,26 @@ import Article from './components/Article';
 // import CommentList from './components/CommentList';
 import { UserProvider } from './contexts/UserContext';
 import Topics from './components/TopicList';
+import SortArticles from './components/SortArticles';
+import { useState } from 'react';
 
 function App() {
 
   const username = '';
+  const [sort, setSort] = useState(null);
 
   return (
     <UserProvider>
       <Header username={username} />
       <Nav />
       <Topics />
+      <SortArticles setSort={setSort}/>
       <Routes>
         <Route path='/' element={<Home />}></Route>
         <Route path='/articles/:id' element={<Article />}></Route>
         {/* <Route path='/articles/:articleId/comments' element={<CommentList />}></Route> */}
-        <Route path='/articles/:sort_by?/:order?' element={<ArticleList />}></Route>
+        {/* <Route path='/articles/:sort_by?/:order?' element={<ArticleList />}></Route> */}
+        <Route path='/articles' element={<ArticleList sort={sort} />}></Route>
         {/* <Route path='/articles/:filterByUser?' element={<ArticleList />}></Route> */}
       </Routes>
     </UserProvider>
