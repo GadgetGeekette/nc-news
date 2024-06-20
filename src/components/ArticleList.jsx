@@ -1,26 +1,32 @@
 import { useState, useEffect } from 'react';
 import { fetchArticles } from "./api";
-import { useParams, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
 
-const ArticleList = () => {
+const ArticleList = ({sort}) => {
 
-    const {sorting} = useParams();
     const [isLoading, setIsLoading] = useState(true);
     const [articles, setArticles] = useState([]);
     const location = useLocation();
 
     useEffect(() => {
         setIsLoading(true);
-        const params = location.state
-            ? { topic: location.state.topic }
+        const params = {}; 
+        params.topic = location.state
+            ? location.state.topic
             : null;
-        fetchArticles(sorting, params)
+        if (sort) {
+            const {sort: {sortBy}} = sort;
+            const {sort: {orderBy}} = sort;
+            params.sort_by = sortBy;
+            params.order = orderBy;
+        }
+        fetchArticles(sort, params)
         .then((articleData) => {
             setArticles(articleData);
             setIsLoading(false);
         });
-    }, [sorting, location]);
+    }, [sort, location]);
 
     function getArticles(articleList){
         if (articleList) {

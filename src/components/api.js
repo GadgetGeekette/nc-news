@@ -5,7 +5,7 @@ const ncNewsApi = axios.create({
 });
 
 // TODO: Due to the BE kata (https://l2c.northcoders.com/courses/be/nc-news#sectionId=Task_11,step=intro) for filtering articles by topic having the title: 'CORE: GET /api/articles (topic query)' I mistakenly added the topic param to the JSON body instead of the URL because I would have expected the title to be: 'CORE: GET /api/articles/?topic' as the others had titles along the lines of: 'CORE: GET /api/articles/:topic'. As axios GET cannot pass data in the body, only in the params, I will need to alter the BE to handle this. However I can see from inspecting the Network dev tools that the param is passing from the FE as expected so should work when the BE is updated.
-export const fetchArticles = ((sorting, params) => {
+export const fetchArticles = ((sort, params) => {
     return ncNewsApi.get('/articles', {params})
         .then(({data}) => {
             return data.articles;

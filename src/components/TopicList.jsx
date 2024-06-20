@@ -2,6 +2,9 @@ import { fetchTopics } from './api';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
+// TODO: add All Topics to menu
+// TODO: add highlight to show which topic is currently selected
+
 const Topics = (() => {
 
     const [isLoading, setIsLoading] = useState(true);
