@@ -1,21 +1,26 @@
 import { useState, useEffect } from 'react';
 import { fetchArticles } from "./api";
 import { useParams, Link } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 
 const ArticleList = () => {
 
     const {sorting} = useParams();
     const [isLoading, setIsLoading] = useState(true);
     const [articles, setArticles] = useState([]);
+    const location = useLocation();
 
     useEffect(() => {
         setIsLoading(true);
-        fetchArticles(sorting)
+        const params = location.state
+            ? { topic: location.state.topic }
+            : null;
+        fetchArticles(sorting, params)
         .then((articleData) => {
             setArticles(articleData);
             setIsLoading(false);
         });
-    }, [sorting]);
+    }, [sorting, location]);
 
     function getArticles(articleList){
         if (articleList) {
@@ -35,7 +40,7 @@ const ArticleList = () => {
     function getArticle(article) {
         const link = `/articles/${article.article_id}`;
         return (
-            <li key={article.article_id} className="card">
+            <li key={article.article_id} className="pad-full">
                 <fieldset>
                     <Link to={link} key={article.article_id}>
                         <p className='bold'>{article.title}</p>

@@ -20,9 +20,7 @@ function CommentList(id) {
     const selectedArticleId = id ? id : articleId;
 
     useEffect(() => {
-        console.log('--useeffect invoked')
         if (selectedArticleId) {
-            console.log('--reloading')
             setIsLoading(true);
             setloadingErrMessage('');
             fetchComments(selectedArticleId)

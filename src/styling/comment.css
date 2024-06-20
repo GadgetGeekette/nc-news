@@ -1,0 +1,12 @@
+.comments {
+    text-align: left;
+    border: solid #000;
+    border-width: 1px;
+    padding: 0em 1em 1em 1em;
+  }
+  
+  .add-comment {
+    width: 98%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
