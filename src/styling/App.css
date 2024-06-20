@@ -33,13 +33,8 @@
   }
 }
 
-.card {
+.pad-full {
   padding: 2em;
-}
-
-.header {
-  font-size: small;
-  text-align: right;
 }
 
 .pad-right {
@@ -61,26 +56,13 @@
 }
 
 .border {
-  /* why didn't this work??
+  /* TODO: why didn't this work??
   border-style: solid;
   border-color: black;
   border: 1px; */
   border: solid #000;
   border-width: 1px;
   padding: 1em;
-}
-
-.comments {
-  text-align: left;
-  border: solid #000;
-  border-width: 1px;
-  padding: 0em 1em 1em 1em;
-}
-
-.add-comment {
-  width: 98%;
-  margin-top: 10px;
-  margin-bottom: 10px;
 }
 
 .align-left {
@@ -95,5 +77,13 @@
 
 .btn {
   background-color: rgb(96, 167, 217);
+}
+
+.banner {
+  width: 100%;
+  background-color: rgba(96, 167, 217, 0.463);
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 5px;
 }
 

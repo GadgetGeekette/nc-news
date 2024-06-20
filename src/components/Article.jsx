@@ -1,7 +1,6 @@
 import {fetchArticleById} from './api'
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-// import { useParams, Link } from 'react-router-dom';
 import CommentList from './CommentList';
 import AddComment from './AddComment';
 import ArticleVote from './ArticleVote';
@@ -21,7 +20,7 @@ const Article = () => {
             });
     }, [id]);
 
-    return (<section className='card'>
+    return (<section className='pad-full'>
         <p className='bold'>{article.title}</p>
         <img src={article.article_img_url} className="image-medium" alt={`Image of ${article.title}`} />
         <p>Topic: {article.topic}</p>
@@ -34,7 +33,6 @@ const Article = () => {
         {AddComment(article.article_id)}
         <br />
         {CommentList(article.article_id)}
-        {/* <Link to={`/articles/${article.article_id}/comments`} key={article.article_id}>View Comments</Link> */}
     </section>);
 };
 
