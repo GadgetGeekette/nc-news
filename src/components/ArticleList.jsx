@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { fetchArticles } from "./api";
+import { fetchArticles } from "../utils/api";
 import { Link } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
 

@@ -11,7 +11,8 @@ export const fetchArticles = ((sort, params) => {
             return data.articles;
         })
         .catch((err) => {
-            console.log(err, '-- Error occurred whilst fetching articles --')
+            console.log(err, '-- Error occurred whilst fetching articles --');
+            throw(err);
         });
 });
 
@@ -21,7 +22,8 @@ export const fetchArticleById = (id) => {
             return data.article;
         })
         .catch((err) => {
-            console.log(err, `-- Error occurred whilst fetching article with ID: ${id} --`)
+            console.log(err, `-- Error occurred whilst fetching article with ID: ${id} --`);
+            throw(err);
         });
 }
 
@@ -31,7 +33,8 @@ export const fetchComments = (articleId) => {
             return data.comments;
         })
         .catch((err) => {
-            console.log(err, `-- Error occurred whilst fetching comments for article with ID: ${articleId} --`)
+            console.log(err, `-- Error occurred whilst fetching comments for article with ID: ${articleId} --`);
+            throw(err);
         });
 }
 
@@ -41,7 +44,8 @@ export const fetchTopics = () => {
             return data.topics;
         })
         .catch((err) => {
-            console.log(err, `-- Error occurred whilst fetching topics --`)
+            console.log(err, `-- Error occurred whilst fetching topics --`);
+            throw(err);
         });
 }
 
@@ -51,7 +55,8 @@ export const updateCommentVote = (id, incVotes) => {
             return data.comment;
         })
         .catch((err) => {
-            console.log(err, `-- Error occurred whilst updating comment vote with ID: ${id} --`)
+            console.log(err, `-- Error occurred whilst updating comment vote with ID: ${id} --`);
+            throw(err);
         });
 }
 
@@ -61,7 +66,8 @@ export const updateArticleVote = (id, incVotes) => {
             return data.article;
         })
         .catch((err) => {
-            console.log(err, `-- Error occurred whilst updating article vote with ID: ${id} --`)
+            console.log(err, `-- Error occurred whilst updating article vote with ID: ${id} --`);
+            throw(err);
         });
 }
 
@@ -71,7 +77,8 @@ export const postComment = (id, comment) => {
             return data.comment;
         })
         .catch((err) => {
-            console.log(err, `-- Error occurred whilst adding comment with article ID: ${id} --`)
+            console.log(err, `-- Error occurred whilst adding comment with article ID: ${id} --`);
+            throw(err);
         });
 }
 
@@ -81,7 +88,8 @@ export const deleteComment = (id) => {
             return status;
         })
         .catch((err) => {
-            console.log(err, `-- Error occurred whilst adding comment with article ID: ${id} --`)
+            console.log(err, `-- Error occurred whilst adding comment with article ID: ${id} --`);
+            throw(err);
         });
 }
 

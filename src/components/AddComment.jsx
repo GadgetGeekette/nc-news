@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
 import { UserContext } from '../contexts/UserContext'
 import { useContext } from 'react'
-import { postComment } from './api'
+import { postComment } from '../utils/api'
 
-const AddComment = ((id) => {
+const AddComment = (({id}) => {
 
     const {user} = useContext(UserContext);
     const [commentInput, setCommentInput] = useState('');
     const [commentBody, addComment] = useState('');
     const [errMessage, setErrMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false)
+    const [btnEnabled, setBtnEnabled] = useState('btn-disabled');
 
     useEffect(() => {
         if (commentBody !== '') {
@@ -33,37 +34,40 @@ const AddComment = ((id) => {
         }
     }, [id, user.username, commentBody])
 
-    function handleSubmit(event) {
-        if (commentInput === '') {
-            event.preventDefault();
-        }
-        else {
+    function handleSubmit() {
+        if (commentInput !== '') {
             addComment(commentInput);
         }
     }
     
     function handleChange(event) {
         setErrMessage('');
-        setCommentInput(event.target.value)
+        setCommentInput(event.target.value);
+        if (event.target.value === '') {
+            setBtnEnabled('btn-disabled')
+        }
+        else{
+            setBtnEnabled('btn-enabled');
+        }
     }
 
     function getResult() {
         if(isLoading) {
-            return (<h2>Loading.....</h2>)
+            return (<h2>Loading.....</h2>);
         }
         else if(errMessage) {
             return (<div className="border">
                 <h4>Sorry: an error occurred whilst adding your comment, please try again...</h4>
                 <p>Error Details:</p>
                 <p>{errMessage}</p>
-            </div>)
+            </div>);
         }
         else {
             return (<form onSubmit={handleSubmit} className="border">
-                <div><label className='align-left bold' htmlFor='addComment'>Add to the discussion:</label></div>
-                <div><textarea placeholder="Enter your comment here" onChange={handleChange} rows="7" className="border add-comment" name="addComment" id="addComment" value={commentInput}></textarea></div>
-                <div><button type="submit" className="btn">Add Comment</button></div>
-            </form>)
+                <div><label className='align-left bold' htmlFor='add-comment'>Add to the discussion:</label></div>
+                <div><textarea placeholder="Enter your comment here" onChange={handleChange} rows="7" className="border add-comment" name="add-comment" id="add-comment" value={commentInput}></textarea></div>
+                <div><button type="submit" className={`mid-blue-background ${btnEnabled}`}>Add Comment</button></div>
+            </form>);
         }
     }
 

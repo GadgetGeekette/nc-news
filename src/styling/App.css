@@ -37,8 +37,9 @@
   padding: 2em;
 }
 
-.pad-right {
-  padding-right: 1em;
+.pad-sides {
+  padding-right: 8px;
+  padding-left: 8px;
 }
 
 .image-small {
@@ -75,8 +76,12 @@
   float: right;
 }
 
-.btn {
+.mid-blue-background {
   background-color: rgb(96, 167, 217);
+}
+
+.light-blue-background {
+  background-color: rgba(96, 167, 217, 0.669);
 }
 
 .banner {
@@ -85,5 +90,17 @@
   padding-top: 5px;
   padding-bottom: 5px;
   margin-top: 5px;
+}
+
+.btn-disabled {
+  cursor: not-allowed;
+}
+
+.btn-enabled {
+  cursor: pointer;
+}
+
+.curved {
+  border-radius: 5px;
 }
 

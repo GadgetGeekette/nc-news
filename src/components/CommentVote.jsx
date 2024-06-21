@@ -2,7 +2,7 @@ import IconButton from '@mui/material/IconButton'
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import { useState, useEffect } from 'react';
-import {updateCommentVote} from './api'
+import {updateCommentVote} from '../utils/api'
 
 // TODO: after user login implemented, prevent user voting multiple times across different sessions
 

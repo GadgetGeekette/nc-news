@@ -5,16 +5,17 @@ import Nav from './components/Nav';
 import Home from './components/Home';
 import ArticleList from './components/ArticleList';
 import Article from './components/Article';
-// import CommentList from './components/CommentList';
 import { UserProvider } from './contexts/UserContext';
 import Topics from './components/TopicList';
 import SortArticles from './components/SortArticles';
 import { useState } from 'react';
+import ErrorPage from './components/ErrorPage';
 
 function App() {
 
   const username = '';
   const [sort, setSort] = useState(null);
+  const [topic, setTopic] = useState(null);
 
   return (
     <UserProvider>
@@ -25,10 +26,9 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />}></Route>
         <Route path='/articles/:id' element={<Article />}></Route>
-        {/* <Route path='/articles/:articleId/comments' element={<CommentList />}></Route> */}
-        {/* <Route path='/articles/:sort_by?/:order?' element={<ArticleList />}></Route> */}
-        <Route path='/articles' element={<ArticleList sort={sort} />}></Route>
-        {/* <Route path='/articles/:filterByUser?' element={<ArticleList />}></Route> */}
+        {/* <Route path='/articles/:topic' element={<Article />}></Route> */}
+        <Route path='/articles' element={<ArticleList sort={sort} topic={topic} />}></Route>
+        <Route path='/*' element={<ErrorPage />}></Route>
       </Routes>
     </UserProvider>
   )
