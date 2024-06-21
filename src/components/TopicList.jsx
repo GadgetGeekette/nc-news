@@ -7,18 +7,13 @@ const Topics = (({setTopic}) => {
     const [isLoading, setIsLoading] = useState(true);
     const [errMessage, setErrMessage] = useState('');
     const [topics, setTopics] = useState([]);
-    // const [highlighting, setHighlighting] = useState([]);
-
-    // useEffect(() => {
-    //     setHighlighting(getHighlights(topic));
-    // }, [topic]);
+    const [selectedTopic, setSelectedTopic] = useState(null);
 
     useEffect(() => {
         setIsLoading(true);
         fetchTopics()
             .then((topicData) => {
                 setTopics(topicData);
-                // getHighlights('all');
             })
             .catch((err) => {
                 const errMsg = err.msg
@@ -30,51 +25,10 @@ const Topics = (({setTopic}) => {
         setIsLoading(false);
     }, []);
 
-    // function getHighlights(slug) {
-    //     let highlitTopics = [];
-
-    //     // Add all articles
-    //     if(!slug || slug === 'all') {
-    //         highlitTopics.push({
-    //             slug: 'all',
-    //             highlit: true
-    //         });
-    //     }
-    //     else {
-    //         highlitTopics.push({
-    //             slug: 'all',
-    //             highlit: false
-    //         });
-    //     }
-
-    //     // Add topics
-    //     for (let i = 0; i < topics.length; i++) {
-    //         if(topics[i].slug === topic) {
-    //             highlitTopics.push({
-    //                 slug: topics[i].slug,
-    //                 highlit: true
-    //             });
-    //         }
-    //         else {
-    //             highlitTopics.push({
-    //                 slug: topics[i].slug,
-    //                 highlit: false
-    //             });
-    //         }
-    //     }
-    //     return highlitTopics;
-    // }
-
     function getHighlight(inputSlug) {
-        // const isHighlighted = highlighting.map((slug) => {
-        //     if(slug.slug === inputSlug) {
-        //         return slug.highlit
-        //     }
-        // });
-        
-        // if(isHighlighted[0] || inputSlug === 'sample') {
-        //     return 'light-blue-background txt-wht';
-        // }
+        if(inputSlug === selectedTopic) {
+            return  'light-blue-background txt-wht';
+        }
         return '';
     }
 
@@ -84,13 +38,12 @@ const Topics = (({setTopic}) => {
     }
 
     function handleClick(event) {
-        const selectedTopic = event.target.innerHTML.toLowerCase();
+        let selectedTopic = event.target.innerHTML.toLowerCase();
         if(selectedTopic === 'all topics') {
-            setTopic(null);
+            selectedTopic = null;
         }
-        else {
-            setTopic(selectedTopic);
-        }
+        setTopic(selectedTopic);
+        setSelectedTopic(selectedTopic);
     }
 
     function getResult() {
@@ -106,10 +59,9 @@ const Topics = (({setTopic}) => {
         }
         else {
             return (<div className="banner">
-                <Link to={`/articles`} key='sample' className={`pad-sides curved ${getHighlight('sample')}`} state={{topic: 'all'}} underline='always'>Selected Topic Sample</Link>
-                <Link onClick={handleClick} to={`/articles`} key='all' className={`pad-sides curved ${getHighlight}`} state={{topic: 'all'}} underline={getHighlight('all')} value={null}>All Topics</Link>
+                <Link onClick={handleClick} to={`/articles`} key='all' className={`pad-sides curved ${getHighlight}`}>All Topics</Link>
                 {topics.map((topic) => {
-                    return <Link onMouseDown={handleClick} to={`/articles`} key={topic.slug} className={`pad-sides curved ${getHighlight}`} state={{topic: topic.slug}} underline={getHighlight(topic.slug)} value={topic.slug}>{capitalize(topic.slug)}</Link>;
+                    return <Link onMouseDown={handleClick} to={`/articles`} key={topic.slug} className={`pad-sides curved ${getHighlight}`}>{capitalize(topic.slug)}</Link>;
                 })}
             </div>)
         }
@@ -120,6 +72,3 @@ const Topics = (({setTopic}) => {
 
 export default Topics;
 
-export function SelectedTopic({setTopic}) {
-    return setTopic;
-}

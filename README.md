@@ -16,7 +16,7 @@ INSTRUCTIONS:
 
 4) BACKEND - repo: https://github.com/GadgetGeekette/be-nc-news, host: https://nc-news-6bxb.onrender.com/
 
-5) USAGE - Articles can be filtered using the topic links at the top of the page and sorted and ordered by date, comment count and votes. Click on any article to expand it and view its votes and comments. At the top of the comments section, add to the discussion by entering your own comments. Up vote your favourite articles and comments using the thumbs up icons.
+5) USAGE - Articles can be filtered using the topic links at the top of the page and sorted and ordered by date, comment count and votes. Click on any article to expand it and view its comments. At the top of the comments section, add to the discussion by entering your own comments. Up vote your favourite articles and comments using the thumbs up icons.
 
 --------------------------------------------------------------------------------
  
