@@ -1,25 +1,17 @@
 import { useState, useEffect } from 'react';
 import { fetchArticles } from "../utils/api";
 import { Link } from 'react-router-dom';
-import { useParams } from "react-router-dom";
 import ErrorPage from './ErrorPage';
 
 const ArticleList = ({articleListInput}) => {
 
-    const {topic} = useParams();
     const [isLoading, setIsLoading] = useState(true);
     const [articles, setArticles] = useState([]);
     const [errStatus, setErrStatus] = useState(null);
     const sort = articleListInput.sort;
-    const setTopic = articleListInput.setTopic;
+    const topic = articleListInput.topic;
 
     useEffect(() => {
-        if(topic) {
-            setTopic(topic);
-        }
-        else {
-            setTopic('all');
-        }
         setIsLoading(true);
         setErrStatus(null);
         const params = {};
@@ -33,14 +25,14 @@ const ArticleList = ({articleListInput}) => {
             params.order = orderBy;
         }
         fetchArticles(sort, params)
-        .then((articleData) => {
-            setArticles(articleData);
-            setIsLoading(false);
-        })
-        .catch((err) => {
-            setErrStatus(err.response.status);
-        });
-    }, [topic, setTopic, sort]);
+            .then((articleData) => {
+                setArticles(articleData);
+                setIsLoading(false);
+            })
+            .catch((err) => {
+                setErrStatus(err.response.status);
+            });
+    }, [topic, sort]);
 
     function getArticles(articleList){
         if (articleList) {

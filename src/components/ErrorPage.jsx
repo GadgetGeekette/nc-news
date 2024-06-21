@@ -1,4 +1,6 @@
 
+// TODO: add input to display status code and error message
+
 const ErrorPage = (() => {
 
     return (<>

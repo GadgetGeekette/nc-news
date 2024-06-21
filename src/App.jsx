@@ -15,16 +15,17 @@ function App() {
 
   const username = '';
   const [sort, setSort] = useState(null);
-  const [topic, setTopic] = useState('all');
-  const [articleListInput, setArticleListInput] = useState({
+  const [topic, setTopic] = useState(null);
+
+  const [articlesInput, setArticlesInput] = useState({
     sort: null,
-    setTopic: setTopic
+    topic: null
   });
 
   useEffect(() => {
-    setArticleListInput({
-      sort: sort,
-      setTopic: setTopic
+    setArticlesInput({
+      topic: topic,
+      sort: sort
     });
   }, [sort, topic]);
 
@@ -32,13 +33,12 @@ function App() {
     <UserProvider>
       <Header username={username} />
       <Nav />
-      <Topics topic={topic}/>
+      <Topics setTopic={setTopic}/>
       <SortArticles setSort={setSort}/>
       <Routes>
         <Route path='/' element={<Home />}></Route>
         <Route path='/articles/:id' element={<Article />}></Route>
-        <Route path='/articles/:topic' element={<ArticleList articleListInput={articleListInput} />}></Route>
-        <Route path='/articles' element={<ArticleList articleListInput={articleListInput} />}></Route>
+        <Route path='/articles' element={<ArticleList articleListInput={articlesInput} />}></Route>
         <Route path='/*' element={<ErrorPage />}></Route>
       </Routes>
     </UserProvider>
