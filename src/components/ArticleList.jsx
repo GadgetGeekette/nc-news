@@ -1,19 +1,36 @@
 import { useState, useEffect } from 'react';
-import { fetchArticles } from "./api";
+import { fetchArticles } from "../utils/api";
 import { Link } from 'react-router-dom';
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
+import ErrorPage from './ErrorPage';
 
-const ArticleList = ({sort}) => {
+const ArticleList = ({articleListInput}) => {
 
+    // TODO: update BE to have slug embedded in the url not the JSON body
+
+    const {topic} = useParams();
     const [isLoading, setIsLoading] = useState(true);
     const [articles, setArticles] = useState([]);
-    const location = useLocation();
+    const [errStatus, setErrStatus] = useState(null);
+    // const location = useLocation(); // TODO: left in for now as an example of usage
+    const sort = articleListInput.sort;
+    const setTopic = articleListInput.setTopic;
 
     useEffect(() => {
+        if(topic) {
+            setTopic(topic);
+        }
+        else {
+            setTopic('all');
+        }
         setIsLoading(true);
-        const params = {}; 
-        params.topic = location.state
-            ? location.state.topic
+        setErrStatus(null);
+        const params = {};
+        // params.topic = location.state
+        //     ? location.state.topic
+        //     : null;
+        params.topic = topic
+            ? topic
             : null;
         if (sort) {
             const {sort: {sortBy}} = sort;
@@ -25,8 +42,11 @@ const ArticleList = ({sort}) => {
         .then((articleData) => {
             setArticles(articleData);
             setIsLoading(false);
+        })
+        .catch((err) => {
+            setErrStatus(err.response.status);
         });
-    }, [sort, location]);
+    }, [topic, setTopic, sort]);
 
     function getArticles(articleList){
         if (articleList) {
@@ -62,13 +82,22 @@ const ArticleList = ({sort}) => {
         );
     }
 
-    return isLoading
-    ? (<h2>Loading articles..... </h2>)
+    function getResult() {
+        if(isLoading) {
+            return (<h2>Loading article.....</h2>)
+        }
+        else if(errStatus) {
+            return (<ErrorPage />) 
+        }
+        else {
+            return (<>
+                <h2>News Articles</h2>
+                {getArticles(articles)}
+            </>);
+        }
+    }
 
-    : (<>
-        <h2>News Articles</h2>
-        {getArticles(articles)}
-    </>);
+    return getResult();
 };
 
 export default ArticleList;

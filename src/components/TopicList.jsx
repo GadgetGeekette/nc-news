@@ -1,21 +1,24 @@
-import { fetchTopics } from './api';
+import { fetchTopics } from '../utils/api';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-// TODO: add All Topics to menu
-// TODO: add highlight to show which topic is currently selected
-
-const Topics = (() => {
+const Topics = (({topic}) => {
 
     const [isLoading, setIsLoading] = useState(true);
     const [errMessage, setErrMessage] = useState('');
     const [topics, setTopics] = useState([]);
+    const [highlighting, setHighlighting] = useState([]);
+
+    useEffect(() => {
+        setHighlighting(getHighlights(topic));
+    }, [topic]);
 
     useEffect(() => {
         setIsLoading(true);
         fetchTopics()
             .then((topicData) => {
                 setTopics(topicData);
+                getHighlights('all');
             })
             .catch((err) => {
                 const errMsg = err.msg
@@ -26,6 +29,59 @@ const Topics = (() => {
             });
         setIsLoading(false);
     }, []);
+
+    function getHighlights(slug) {
+        let highlitTopics = [];
+
+        // Add all articles
+        if(!slug || slug === 'all') {
+            highlitTopics.push({
+                slug: 'all',
+                highlit: true
+            });
+        }
+        else {
+            highlitTopics.push({
+                slug: 'all',
+                highlit: false
+            });
+        }
+
+        // Add topics
+        for (let i = 0; i < topics.length; i++) {
+            if(topics[i].slug === topic) {
+                highlitTopics.push({
+                    slug: topics[i].slug,
+                    highlit: true
+                });
+            }
+            else {
+                highlitTopics.push({
+                    slug: topics[i].slug,
+                    highlit: false
+                });
+            }
+        }
+        return highlitTopics;
+    }
+
+    function getHighlight(inputSlug) {
+        const isHighlighted = highlighting.map((slug) => {
+            if(slug.slug === inputSlug) {
+                return slug.highlit
+            }
+        });
+        
+        if(isHighlighted[0] || inputSlug === 'sample') {
+            return 'light-blue-background txt-wht';
+        }
+        return '';
+    }
+
+    // TODO: move to utils folder and add TDD
+    function capitalize(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
 
     function getResult() {
         if(isLoading) {
@@ -40,8 +96,10 @@ const Topics = (() => {
         }
         else {
             return (<div className="banner">
+                <Link to={`/articles`} key='sample' className={`pad-sides curved ${getHighlight('sample')}`} state={{topic: 'all'}} underline='always'>Selected Topic Sample</Link>
+                <Link to={`/articles`} key='all' className={`pad-sides curved ${getHighlight}`} state={{topic: 'all'}} underline={getHighlight('all')}>All Topics</Link>
                 {topics.map((topic) => {
-                    return <Link to={`/articles`} key={topic.slug} className='pad-right' state={{topic: topic.slug}}>{topic.slug}</Link>;
+                    return <Link to={`/articles`} key={topic.slug} className={`pad-sides curved ${getHighlight}`} state={{topic: topic.slug}} underline={getHighlight(topic.slug)}>{capitalize(topic.slug)}</Link>;
                 })}
             </div>)
         }
@@ -51,3 +109,7 @@ const Topics = (() => {
 });
 
 export default Topics;
+
+export function SelectedTopic({setTopic}) {
+    return setTopic;
+}

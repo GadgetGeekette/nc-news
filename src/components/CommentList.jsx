@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
-import { fetchComments } from './api';
+import { fetchComments } from '../utils/api';
 import { useParams } from 'react-router-dom';
 import CommentVote from './CommentVote';
 import { UserContext } from '../contexts/UserContext';
 import { useContext } from 'react';
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete';
-import { deleteComment } from './api';
+import { deleteComment } from '../utils/api';
 import '../styling/comment.css';
 
-function CommentList(id) {
+function CommentList({id}) {
     
     const {user} = useContext(UserContext);
-    const [comments, setComments] = useState([]);
     const {articleId} = useParams();
+    const [comments, setComments] = useState([]);
     const [delErrMessage, setDelErrMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false)
     const [loadingErrMessage, setloadingErrMessage] = useState('');
@@ -24,6 +24,7 @@ function CommentList(id) {
         if (selectedArticleId) {
             setIsLoading(true);
             setloadingErrMessage('');
+            setDelErrMessage('');
             fetchComments(selectedArticleId)
             .then((commentData) => {
                 if(!commentData) {
@@ -34,8 +35,8 @@ function CommentList(id) {
             })
             .catch((err) => {
                 const errMsg = err.msg
-                    ? err.msg
-                    : 'An unknown error occurred whilst loading comments';
+                ? err.msg
+                : 'An unknown error occurred whilst loading comments';
                 setloadingErrMessage(errMsg);
                 setIsLoading(false);
             });
@@ -74,6 +75,7 @@ function CommentList(id) {
     }
 
     function handleDeleteClick(commentId) {
+        setDelErrMessage('');
         deleteComment(commentId)
             .then(() => {
                 setDeleted(!deleted)

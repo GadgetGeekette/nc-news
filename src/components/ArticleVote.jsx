@@ -1,8 +1,8 @@
 import IconButton from '@mui/material/IconButton'
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
-import { useState } from 'react';
-import {updateArticleVote} from './api'
+import { useState, useEffect } from 'react';
+import {updateArticleVote} from '../utils/api'
 
 // TODO: after user login implemented, prevent user voting multiple times across different sessions
 
@@ -11,6 +11,10 @@ function ArticleVote({article}) {
     const [votesCount, setVotesCount] = useState(article.voteCount);
     const [incrVote, setIncrVote] = useState(-1);
     const [errMessage, setErrMessage] = useState('');
+
+    useEffect(() => {
+        setVotesCount(article.voteCount);
+    }, [article])
 
     function handleClick() {
         const incrVoteVal = incrVote === -1

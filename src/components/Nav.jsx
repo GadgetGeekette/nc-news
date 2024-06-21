@@ -2,9 +2,9 @@
 const Nav = () => {
     return (<div>
         <nav className="align-left">
-            <a href="/" className="pad-right">Home</a>
-            <a href="/articles/" className="pad-right">Articles</a>
-            {/* <a href="/Articles/true" className="pad-right">Articles</a> */}
+            <a href="/" className="pad-sides">Home</a>
+            <a href="/articles/" className="pad-sides">Articles</a>
+            {/* <a href="/Articles/true" className="pad-sides">Articles</a> */}
         </nav>
         <br></br>
     </div>);
