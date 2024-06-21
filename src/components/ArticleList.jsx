@@ -1,18 +1,15 @@
 import { useState, useEffect } from 'react';
 import { fetchArticles } from "../utils/api";
 import { Link } from 'react-router-dom';
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ErrorPage from './ErrorPage';
 
 const ArticleList = ({articleListInput}) => {
-
-    // TODO: update BE to have slug embedded in the url not the JSON body
 
     const {topic} = useParams();
     const [isLoading, setIsLoading] = useState(true);
     const [articles, setArticles] = useState([]);
     const [errStatus, setErrStatus] = useState(null);
-    // const location = useLocation(); // TODO: left in for now as an example of usage
     const sort = articleListInput.sort;
     const setTopic = articleListInput.setTopic;
 
@@ -26,9 +23,6 @@ const ArticleList = ({articleListInput}) => {
         setIsLoading(true);
         setErrStatus(null);
         const params = {};
-        // params.topic = location.state
-        //     ? location.state.topic
-        //     : null;
         params.topic = topic
             ? topic
             : null;
