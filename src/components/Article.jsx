@@ -10,19 +10,18 @@ const Article = () => {
 
     const {id} = useParams();
     const [article, setArticle] = useState({});
-    const [errStatus, setErrorStatus] = useState(null);
+    const [errStatus, setErrStatus] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        // setArticleId(null);
         setIsLoading(true);
-        setErrorStatus(null);
+        setErrStatus(null);
         fetchArticleById(id)
             .then((articleData) => {
                 setArticle(articleData);
             })
             .catch((err) => {
-                setErrorStatus(err.response.status);
+                setErrStatus(err.response.status);
             });
             setIsLoading(false);
     }, [id]);

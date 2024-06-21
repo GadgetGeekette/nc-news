@@ -4,14 +4,13 @@ import { useState, useEffect } from 'react';
 
 const Topics = (({topic}) => {
 
-    // TODO: update BE to have slug embedded in the url not the JSON body
-
     const [isLoading, setIsLoading] = useState(true);
     const [errMessage, setErrMessage] = useState('');
     const [topics, setTopics] = useState([]);
+    const [highlighting, setHighlighting] = useState([]);
 
     useEffect(() => {
-        getHighlights(topic);
+        setHighlighting(getHighlights(topic));
     }, [topic]);
 
     useEffect(() => {
@@ -19,6 +18,7 @@ const Topics = (({topic}) => {
         fetchTopics()
             .then((topicData) => {
                 setTopics(topicData);
+                getHighlights('all');
             })
             .catch((err) => {
                 const errMsg = err.msg
@@ -30,47 +30,51 @@ const Topics = (({topic}) => {
         setIsLoading(false);
     }, []);
 
-    function getHighlights() {
-        let slugs = [];
+    function getHighlights(slug) {
+        let highlitTopics = [];
 
-        if(topic === 'all') {
-            slugs.push({
+        // Add all articles
+        if(!slug || slug === 'all') {
+            highlitTopics.push({
                 slug: 'all',
                 highlit: true
             });
         }
         else {
-            slugs.push({
+            highlitTopics.push({
                 slug: 'all',
                 highlit: false
             });
         }
 
+        // Add topics
         for (let i = 0; i < topics.length; i++) {
             if(topics[i].slug === topic) {
-                slugs.push({
-                    slug: topics.slug,
+                highlitTopics.push({
+                    slug: topics[i].slug,
                     highlit: true
                 });
             }
             else {
-                slugs.push({
-                    slug: topics.slug,
+                highlitTopics.push({
+                    slug: topics[i].slug,
                     highlit: false
                 });
             }
         }
-        return slugs;
+        return highlitTopics;
     }
 
-    function getHighlight(slug) {
-        console.log(slug, '--slug')
-        if(!topic && slug === 'all'
-            || topics.slug && slug === topics.slug) {
-                console.log('always')
-                return 'always';
+    function getHighlight(inputSlug) {
+        const isHighlighted = highlighting.map((slug) => {
+            if(slug.slug === inputSlug) {
+                return slug.highlit
+            }
+        });
+        
+        if(isHighlighted[0] || inputSlug === 'sample') {
+            return 'light-blue-background txt-wht';
         }
-        console.log('none')
         return '';
     }
 
@@ -92,10 +96,10 @@ const Topics = (({topic}) => {
         }
         else {
             return (<div className="banner">
-                {/* <Link to={`/articles`} key='all' className='pad-sides light-blue-background curved' state={{topic: 'all'}} underline='always'>All Topics</Link> */}
+                <Link to={`/articles`} key='sample' className={`pad-sides curved ${getHighlight('sample')}`} state={{topic: 'all'}} underline='always'>Selected Topic Sample</Link>
                 <Link to={`/articles`} key='all' className={`pad-sides curved ${getHighlight}`} state={{topic: 'all'}} underline={getHighlight('all')}>All Topics</Link>
                 {topics.map((topic) => {
-                    return <Link to={`/articles`} key={topic.slug} className='pad-sides curved' state={{topic: topic.slug}} underline={getHighlight(topic.slug)}>{capitalize(topic.slug)}</Link>;
+                    return <Link to={`/articles`} key={topic.slug} className={`pad-sides curved ${getHighlight}`} state={{topic: topic.slug}} underline={getHighlight(topic.slug)}>{capitalize(topic.slug)}</Link>;
                 })}
             </div>)
         }
