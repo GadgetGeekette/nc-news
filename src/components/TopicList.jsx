@@ -2,12 +2,14 @@ import { fetchTopics } from '../utils/api';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-const Topics = (({setTopic}) => {
+const Topics = (({topicsInput}) => {
 
+    const topic = topicsInput.topic;
+    const setTopic = topicsInput.setTopic;
     const [isLoading, setIsLoading] = useState(true);
     const [errMessage, setErrMessage] = useState('');
     const [topics, setTopics] = useState([]);
-    const [selectedTopic, setSelectedTopic] = useState(null);
+    const [selectedTopic, setSelectedTopic] = useState(topic);
 
     useEffect(() => {
         setIsLoading(true);
@@ -59,9 +61,9 @@ const Topics = (({setTopic}) => {
         }
         else {
             return (<div className="banner">
-                <Link onClick={handleClick} to={`/articles`} key='all' className={`pad-sides curved ${getHighlight}`}>All Topics</Link>
+                <Link onClick={handleClick} to={`/articles`} key='all' className={`pad-sides curved ${getHighlight(null)}`}>All Topics</Link>
                 {topics.map((topic) => {
-                    return <Link onMouseDown={handleClick} to={`/articles`} key={topic.slug} className={`pad-sides curved ${getHighlight}`}>{capitalize(topic.slug)}</Link>;
+                    return <Link onMouseDown={handleClick} to={`/articles`} key={topic.slug} className={`pad-sides curved ${getHighlight(topic.slug)}`}>{capitalize(topic.slug)}</Link>;
                 })}
             </div>)
         }

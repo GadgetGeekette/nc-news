@@ -21,6 +21,10 @@ function App() {
     sort: null,
     topic: null
   });
+  const [topicsInput, setTopicsInput] = useState({
+    topic: null,
+    setTopic: setTopic
+  });
 
   useEffect(() => {
     setArticlesInput({
@@ -29,11 +33,18 @@ function App() {
     });
   }, [sort, topic]);
 
+  useEffect(() => {
+    setTopicsInput({
+      topic: topic,
+      setTopic: setTopic
+    });
+  }, [topic]);
+
   return (
     <UserProvider>
       <Header username={username} />
       <Nav />
-      <Topics setTopic={setTopic}/>
+      <Topics topicsInput={topicsInput}/>
       <SortArticles setSort={setSort}/>
       <Routes>
         <Route path='/' element={<Home />}></Route>

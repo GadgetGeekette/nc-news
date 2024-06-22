@@ -53,7 +53,7 @@ const AddComment = (({id}) => {
 
     function getResult() {
         if(isLoading) {
-            return (<h2>Loading.....</h2>);
+            return (<h2>Adding comment.....</h2>);
         }
         else if(errMessage) {
             return (<div className="border">

@@ -70,7 +70,7 @@ const ArticleList = ({articleListInput}) => {
 
     function getResult() {
         if(isLoading) {
-            return (<h2>Loading article.....</h2>)
+            return (<h2>Loading articles.....</h2>)
         }
         else if(errStatus) {
             return (<ErrorPage />) 
