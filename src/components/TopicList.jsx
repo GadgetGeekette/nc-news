@@ -28,8 +28,10 @@ const Topics = (({setTopic}) => {
     }, []);
 
     function getHighlight(slug) {
-        if(!window.location.pathname.includes('articles')) {
-            return '';
+        if(window.location.pathname !== '/articles'
+            && window.location.pathname !== '/articles/') {
+                // not displaying article list
+                return '';
         }
         if(slug === topic) {
             return  'light-blue-background txt-wht';
