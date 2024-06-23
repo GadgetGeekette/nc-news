@@ -34,7 +34,7 @@ const Article = () => {
             return (<ErrorPage />) 
         }
         else {
-            return (<section className='pad-full'>
+            return (<div className='pad-full card'>
                 <p className='bold'>{article.title}</p>
                 <img src={article.article_img_url} className="image-medium" alt={`Image of ${article.title}`} />
                 <p>Topic: {article.topic}</p>
@@ -47,7 +47,7 @@ const Article = () => {
                 <AddComment id={article.article_id} />
                 <br />
                 <CommentList id={article.article_id} />
-            </section>);
+            </div>);
         }
     }
 
