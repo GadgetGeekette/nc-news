@@ -26,7 +26,7 @@ const ArticleList = ({sort}) => {
             params.sort_by = sortBy;
             params.order = orderBy;
         }
-        fetchArticles(sort, params)
+        fetchArticles(params)
             .then((articleData) => {
                 setArticles(articleData);
                 setIsLoading(false);
