@@ -11,6 +11,8 @@ import SortArticles from './components/SortArticles';
 import { useState } from 'react';
 import ErrorPage from './components/ErrorPage';
 
+// TODO: create theme to unify and simplify component colour scheme, including dark and light options 
+
 function App() {
 
   const username = '';

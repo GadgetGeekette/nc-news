@@ -8,7 +8,8 @@ const Topics = (({setTopic}) => {
     const [errMessage, setErrMessage] = useState('');
     const [topics, setTopics] = useState([]);
     const [searchParams] = useSearchParams();
-    const topic = searchParams.get("topic");
+    let topic = searchParams.get("topic");
+    if(topic === null) { topic = JSON.stringify(topic); } // convert from empty obj to empty str
 
     useEffect(() => {
         setIsLoading(true);
@@ -26,8 +27,11 @@ const Topics = (({setTopic}) => {
         setIsLoading(false);
     }, []);
 
-    function getHighlight(inputSlug) {
-        if(inputSlug === topic) {
+    function getHighlight(slug) {
+        if(!window.location.pathname.includes('articles')) {
+            return '';
+        }
+        if(slug === topic) {
             return  'light-blue-background txt-wht';
         }
         return '';
@@ -59,7 +63,7 @@ const Topics = (({setTopic}) => {
         }
         else {
             return (<div className="banner">
-                <Link onClick={handleClick} to={`/articles`} key='all' className={`pad-sides curved ${getHighlight(null)}`}>All Topics</Link>
+                <Link onClick={handleClick} to={`/articles`} key='all' className={`pad-sides curved ${getHighlight('null')}`}>All Topics</Link>
                 {topics.map((topic) => {
                     return <Link onMouseDown={handleClick} to={`/articles?topic=${topic.slug}`} key={topic.slug} className={`pad-sides curved ${getHighlight(topic.slug)}`}>{capitalize(topic.slug)}</Link>;
                 })}

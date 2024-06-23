@@ -32,6 +32,7 @@ const ArticleList = ({sort}) => {
                 setIsLoading(false);
             })
             .catch((err) => {
+                setIsLoading(false);
                 setErrStatus(err.response.status);
             });
     }, [topic, sort]);
@@ -39,11 +40,11 @@ const ArticleList = ({sort}) => {
     function getArticles(articleList){
         if (articleList) {
             return (
-                <ul>
+                <div className='cards'>
                     {articleList.map((article) => {
                         return getArticle(article);
                     })}
-                </ul>
+                </div>
             )
         }
         else {
@@ -54,7 +55,7 @@ const ArticleList = ({sort}) => {
     function getArticle(article) {
         const link = `/articles/${article.article_id}`;
         return (
-            <li key={article.article_id} className="pad-full">
+            <div key={article.article_id} className="pad-full card">
                 <fieldset>
                     <Link to={link} key={article.article_id}>
                         <p className='bold'>{article.title}</p>
@@ -66,7 +67,7 @@ const ArticleList = ({sort}) => {
                         <img src={article.article_img_url} className="image-small" alt={`Image of ${article.title}`} />
                     </Link>
                 </fieldset>
-            </li>
+            </div>
         );
     }
 
