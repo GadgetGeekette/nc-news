@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react';
 import { fetchArticles } from "../utils/api";
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import ErrorPage from './ErrorPage';
 
-const ArticleList = ({articleListInput}) => {
+const ArticleList = ({sort}) => {
+
+    // TODO: add pagination
 
     const [isLoading, setIsLoading] = useState(true);
     const [articles, setArticles] = useState([]);
     const [errStatus, setErrStatus] = useState(null);
-    const sort = articleListInput.sort;
-    const topic = articleListInput.topic;
+    const [searchParams] = useSearchParams();
+    const topic = searchParams.get("topic");
 
     useEffect(() => {
         setIsLoading(true);

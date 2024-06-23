@@ -1,5 +1,7 @@
 import { createContext, useState } from "react";
 
+// TODO: add user roles when implementing CRUD for articles
+
 export const UserContext = createContext()
 
 export const UserProvider = (({ children }) => {

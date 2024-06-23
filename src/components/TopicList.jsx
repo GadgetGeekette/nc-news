@@ -1,15 +1,14 @@
 import { fetchTopics } from '../utils/api';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-const Topics = (({topicsInput}) => {
+const Topics = (({setTopic}) => {
 
-    const topic = topicsInput.topic;
-    const setTopic = topicsInput.setTopic;
     const [isLoading, setIsLoading] = useState(true);
     const [errMessage, setErrMessage] = useState('');
     const [topics, setTopics] = useState([]);
-    const [selectedTopic, setSelectedTopic] = useState(topic);
+    const [searchParams] = useSearchParams();
+    const topic = searchParams.get("topic");
 
     useEffect(() => {
         setIsLoading(true);
@@ -28,7 +27,7 @@ const Topics = (({topicsInput}) => {
     }, []);
 
     function getHighlight(inputSlug) {
-        if(inputSlug === selectedTopic) {
+        if(inputSlug === topic) {
             return  'light-blue-background txt-wht';
         }
         return '';
@@ -45,7 +44,6 @@ const Topics = (({topicsInput}) => {
             selectedTopic = null;
         }
         setTopic(selectedTopic);
-        setSelectedTopic(selectedTopic);
     }
 
     function getResult() {
@@ -63,7 +61,7 @@ const Topics = (({topicsInput}) => {
             return (<div className="banner">
                 <Link onClick={handleClick} to={`/articles`} key='all' className={`pad-sides curved ${getHighlight(null)}`}>All Topics</Link>
                 {topics.map((topic) => {
-                    return <Link onMouseDown={handleClick} to={`/articles`} key={topic.slug} className={`pad-sides curved ${getHighlight(topic.slug)}`}>{capitalize(topic.slug)}</Link>;
+                    return <Link onMouseDown={handleClick} to={`/articles?topic=${topic.slug}`} key={topic.slug} className={`pad-sides curved ${getHighlight(topic.slug)}`}>{capitalize(topic.slug)}</Link>;
                 })}
             </div>)
         }

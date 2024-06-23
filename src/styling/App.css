@@ -57,10 +57,6 @@
 }
 
 .border {
-  /* TODO: why didn't this work??
-  border-style: solid;
-  border-color: black;
-  border: 1px; */
   border: solid #000;
   border-width: 1px;
   padding: 1em;
